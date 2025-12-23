@@ -18,6 +18,13 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
 cd "$PROJECT_ROOT"
 
+# Load .env for GH_TOKEN if available
+if [ -f "$PROJECT_ROOT/.env" ]; then
+    set -a
+    source "$PROJECT_ROOT/.env"
+    set +a
+fi
+
 echo ""
 echo -e "${BLUE}╔══════════════════════════════════════════════════════════════════╗${NC}"
 echo -e "${BLUE}║                    MATS-BACKTRACKING Push                        ║${NC}"
@@ -125,7 +132,15 @@ echo -e "${GREEN}✓${NC} Committed"
 # -----------------------------------------------------------------------------
 echo ""
 echo -e "${BLUE}Pushing to origin/$BRANCH...${NC}"
-git push origin "$BRANCH"
+
+# If GH_TOKEN is set, use it for authentication (useful for ephemeral instances)
+if [ -n "$GH_TOKEN" ]; then
+    # Temporarily set remote with token for push
+    REPO_URL=$(git remote get-url origin | sed 's|https://[^@]*@|https://|' | sed 's|https://|https://'"$GH_TOKEN"'@|')
+    git push "$REPO_URL" "$BRANCH" 2>/dev/null
+else
+    git push origin "$BRANCH"
+fi
 echo -e "${GREEN}✓${NC} Pushed to origin!"
 
 # -----------------------------------------------------------------------------
