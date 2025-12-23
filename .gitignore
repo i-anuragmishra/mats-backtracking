@@ -1,0 +1,163 @@
+# =============================================================================
+# MATS-BACKTRACKING .gitignore
+# Optimized for mechanistic interpretability research projects
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Python
+# -----------------------------------------------------------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# -----------------------------------------------------------------------------
+# Virtual Environment
+# -----------------------------------------------------------------------------
+.venv/
+venv/
+ENV/
+env/
+.uv/
+
+# -----------------------------------------------------------------------------
+# Caches (HuggingFace, Torch, etc.)
+# -----------------------------------------------------------------------------
+.cache/
+*.cache
+.huggingface/
+hub/
+
+# -----------------------------------------------------------------------------
+# Large Model Files / Weights (NEVER commit these)
+# -----------------------------------------------------------------------------
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.ckpt
+*.h5
+*.hdf5
+*.onnx
+*.pkl
+*.pickle
+checkpoints/
+*.npy
+*.npz
+# Exception: allow small numpy files if explicitly tracked
+!configs/*.npy
+
+# -----------------------------------------------------------------------------
+# Data (raw data often too large; interim/processed case-by-case)
+# -----------------------------------------------------------------------------
+data/raw/
+# Uncomment below to also ignore processed data:
+# data/interim/
+# data/processed/
+
+# -----------------------------------------------------------------------------
+# Logs and Outputs
+# -----------------------------------------------------------------------------
+logs/
+*.log
+wandb/
+mlruns/
+lightning_logs/
+tensorboard_logs/
+outputs/
+
+# Runs folder contents (metadata tracked, but large outputs ignored)
+runs/**/activations/
+runs/**/checkpoints/
+runs/**/*.pt
+runs/**/*.bin
+runs/**/*.safetensors
+
+# -----------------------------------------------------------------------------
+# Jupyter Notebooks
+# -----------------------------------------------------------------------------
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+# Uncomment to ignore notebook outputs (recommended for clean diffs):
+# *.ipynb filter=strip-notebook-output
+
+# -----------------------------------------------------------------------------
+# IDE and Editor
+# -----------------------------------------------------------------------------
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# -----------------------------------------------------------------------------
+# Secrets and Environment (CRITICAL: never commit these)
+# -----------------------------------------------------------------------------
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+credentials/
+
+# -----------------------------------------------------------------------------
+# Temporary and Scratch
+# -----------------------------------------------------------------------------
+scratch/
+tmp/
+temp/
+*.tmp
+*.temp
+
+# -----------------------------------------------------------------------------
+# Testing and Coverage
+# -----------------------------------------------------------------------------
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# -----------------------------------------------------------------------------
+# Build artifacts
+# -----------------------------------------------------------------------------
+*.tar.gz
+*.zip
+*.7z
+
+# -----------------------------------------------------------------------------
+# DVC (if used)
+# -----------------------------------------------------------------------------
+# Uncomment if using DVC:
+# *.dvc
+# .dvc/
+
+# -----------------------------------------------------------------------------
+# Exceptions (files to ALWAYS track even if matched above)
+# -----------------------------------------------------------------------------
+!.gitkeep
+!**/README.md
+!configs/*.yaml
+!configs/*.yml
+!configs/*.json
+
