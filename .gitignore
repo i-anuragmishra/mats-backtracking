@@ -78,17 +78,22 @@ data/raw/
 logs/
 *.log
 wandb/
+
+# Spec file (reference document, not part of codebase)
+reports/Backtracking_State_Transition_Spec.md
 mlruns/
 lightning_logs/
 tensorboard_logs/
 outputs/
-
 # Runs folder contents (metadata tracked, but large outputs ignored)
+runs/**/generations/
 runs/**/activations/
 runs/**/checkpoints/
 runs/**/*.pt
 runs/**/*.bin
 runs/**/*.safetensors
+# Run ID persistence file
+runs/.current_run_id
 
 # -----------------------------------------------------------------------------
 # Jupyter Notebooks
@@ -160,4 +165,10 @@ htmlcov/
 !configs/*.yaml
 !configs/*.yml
 !configs/*.json
+
+# Track run analysis outputs (small files)
+!runs/**/analysis/
+!runs/**/figures/
+!runs/**/config_resolved.yaml
+!runs/**/meta.json
 

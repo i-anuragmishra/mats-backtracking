@@ -1,0 +1,99 @@
+# =============================================================================
+# Backtracking State Transition Experiment Configuration
+# =============================================================================
+# This config drives the full pipeline for investigating backtracking
+# and state transitions in reasoning models.
+
+run:
+  name: "backtracking_state_transition"
+  seed: 42
+  run_id: null              # if null, auto-generate timestamp-based id via init-run
+  output_dir: "runs"        # base output dir
+
+model:
+  hf_id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+  trust_remote_code: true
+  torch_dtype: "bfloat16"    # "float16" or "bfloat16"
+  device: "cuda"
+  attn_implementation: "flash_attention_2"  # or null for default
+  use_cache: true
+
+dataset:
+  name: "gsm8k"
+  split: "test"
+  max_examples: 200
+  shuffle: true
+  seed: 123
+  save_path: "data/processed/gsm8k_200.jsonl"
+
+prompting:
+  system_prompt: "You are a helpful assistant."
+  template: |
+    Solve the problem carefully.
+    Use <think> tags for your reasoning.
+    End with a single line: Final: <answer>
+
+    Problem: {question}
+
+  formatting_variants:
+    - name: "baseline_think_newline"
+      think_open: "<think>\n"
+      think_close: "\n</think>\n"
+    - name: "think_same_line"
+      think_open: "<think> "
+      think_close: " </think>\n"
+    - name: "no_think_tags"
+      think_open: ""
+      think_close: ""
+
+generation:
+  num_samples_per_prompt: 6
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.95
+  do_sample: true
+  batch_size: 4
+
+detection:
+  # Strict triggers for primary backtracking detection
+  triggers_strict:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+  # Relaxed triggers include more variations
+  triggers_relaxed:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+    - "Let me check"
+    - "Let's check"
+    - "I was wrong"
+    - "mistake"
+  # Priority order for determining onset phrase
+  onset_priority:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+  # Regex for answer extraction (null = use default last_number heuristic)
+  answer_regex: null
+
+analysis:
+  max_events: 120           # max backtracking events to analyze
+  control_samples: 120      # number of control samples for comparison
+  logit_lens_token: "Wait"  # fallback token if onset_token_id unavailable
+  ablation_components:
+    - "attn"
+    - "mlp"
+  ablation_layers: "all"    # "all" or list like [18, 19, 20]
+  topk_layers_for_generation: 6  # top-k layers from ablation scan
+
+ablation_generation:
+  enabled: true
+  mode: "scale"             # "zero" or "scale"
+  scale: 0.0                # multiply component output by this (0.0 = zero out)
+  random_control_seed: 999  # seed for random ablation control
+
+report:
+  make_report: true
+  report_path: "reports/backtracking_state_transition_report.md"
+
