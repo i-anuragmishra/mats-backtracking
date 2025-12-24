@@ -1,0 +1,59 @@
+{
+  "total_samples": 6000,
+  "backtracking_strict_count": 3145,
+  "backtracking_strict_rate": 0.5241666666666667,
+  "backtracking_relaxed_count": 3182,
+  "backtracking_relaxed_rate": 0.5303333333333333,
+  "correct_count": 747,
+  "incorrect_count": 5130,
+  "unknown_count": 123,
+  "accuracy": 0.12710566615620214,
+  "accuracy_with_backtracking": 0.18855325914149443,
+  "accuracy_without_backtracking": 0.05394045534150613,
+  "by_variant": {
+    "baseline_think_newline": {
+      "total": 3600,
+      "backtracking_strict": 1543,
+      "backtracking_rate": 0.4286111111111111,
+      "correct": 292,
+      "accuracy": 0.0811111111111111
+    },
+    "think_same_line": {
+      "total": 1200,
+      "backtracking_strict": 818,
+      "backtracking_rate": 0.6816666666666666,
+      "correct": 236,
+      "accuracy": 0.19666666666666666
+    },
+    "no_think_tags": {
+      "total": 1200,
+      "backtracking_strict": 784,
+      "backtracking_rate": 0.6533333333333333,
+      "correct": 219,
+      "accuracy": 0.1825
+    }
+  },
+  "by_condition": {
+    "baseline": {
+      "total": 3600,
+      "backtracking_strict": 2452,
+      "backtracking_rate": 0.6811111111111111,
+      "correct": 714,
+      "accuracy": 0.19833333333333333
+    },
+    "targeted_ablation": {
+      "total": 1200,
+      "backtracking_strict": 34,
+      "backtracking_rate": 0.028333333333333332,
+      "correct": 14,
+      "accuracy": 0.011666666666666667
+    },
+    "random_ablation": {
+      "total": 1200,
+      "backtracking_strict": 659,
+      "backtracking_rate": 0.5491666666666667,
+      "correct": 19,
+      "accuracy": 0.015833333333333335
+    }
+  }
+}

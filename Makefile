@@ -115,3 +115,4 @@ clean-cache:
 	@echo "🗑️  Clearing caches (this will require re-downloading models)..."
 	@read -p "Are you sure? [y/N] " confirm && [ "$$confirm" = "y" ] && rm -rf .cache/ || echo "Cancelled"
 
+

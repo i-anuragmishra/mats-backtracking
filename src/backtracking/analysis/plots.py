@@ -352,3 +352,4 @@ def plot_formatting_effect(
     paths = save_figure(fig, "formatting_effect_on_backtracking", run_id)
     return paths[0]
 
+

@@ -15,7 +15,7 @@ model:
   trust_remote_code: true
   torch_dtype: "bfloat16"    # "float16" or "bfloat16"
   device: "cuda"
-  attn_implementation: "flash_attention_2"  # or null for default
+  attn_implementation: "sdpa"  # PyTorch native; use "flash_attention_2" if flash_attn installed
   use_cache: true
 
 dataset:

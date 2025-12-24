@@ -397,3 +397,4 @@ def save_run_metadata(metadata: dict[str, Any], run_dir: Path) -> None:
     with open(meta_path, "w") as f:
         json.dump(metadata, f, indent=2)
 
+

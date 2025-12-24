@@ -270,3 +270,4 @@ def get_non_backtracking_events(
     key = "has_backtracking_strict" if strict else "has_backtracking_relaxed"
     return [e for e in events if not e[key]]
 
+

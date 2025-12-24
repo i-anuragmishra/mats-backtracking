@@ -212,3 +212,4 @@ def file_exists(path: str | Path) -> bool:
     """Check if a file exists."""
     return Path(path).exists()
 
+

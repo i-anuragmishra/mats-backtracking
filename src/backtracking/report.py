@@ -226,3 +226,4 @@ def generate_report(
     print(f"Report written to: {output_path}")
     return output_path
 
+

@@ -127,3 +127,4 @@ def list_variants(config: PromptingConfig) -> list[str]:
     """
     return [v.name for v in config.formatting_variants]
 
+

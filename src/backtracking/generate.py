@@ -239,3 +239,4 @@ def get_generation_stats(generations: list[dict[str, Any]]) -> dict[str, Any]:
         "variants": list(set(g["variant"] for g in generations)),
     }
 
+
