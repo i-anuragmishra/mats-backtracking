@@ -327,3 +327,15 @@ The Phase 2 implementation is complete. If the user encounters errors:
 2. Ensure `--phase1-run-id` flag is passed to commands that need it
 3. Verify the Phase 2 config has all required `phase2.*` sections
 
+# 1. Clone repo
+git clone https://github.com/i-anuragmishra/mats-backtracking.git
+cd mats-backtracking
+
+# 2. Bootstrap environment
+./scripts/bootstrap.sh
+
+# 3. Continue Phase 2 from step 3 (subset sweep):
+python -m backtracking.cli phase2-subset-sweep --config configs/backtracking_state_transition_phase2.yaml
+
+# Or start fresh with new run ID
+./scripts/run_backtracking_phase2.sh 20251223_232541
