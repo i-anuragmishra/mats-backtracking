@@ -114,6 +114,58 @@ class ReportConfig:
     report_path: str = "reports/backtracking_state_transition_report.md"
 
 
+# =============================================================================
+# Phase 2 Configuration Dataclasses
+# =============================================================================
+
+@dataclass
+class Phase2SubsetSweepConfig:
+    """Phase 2 subset sweep configuration."""
+    enabled: bool = True
+    variant: str = "baseline_think_newline"
+    subsets: dict = field(default_factory=dict)
+
+
+@dataclass
+class Phase2ScaleSweepConfig:
+    """Phase 2 scale sweep configuration."""
+    enabled: bool = True
+    variant: str = "baseline_think_newline"
+    subset_name: str = "mlp_late_cluster"
+    scales: list[float] = field(default_factory=lambda: [0.0, 0.25, 0.5, 0.75, 0.9])
+
+
+@dataclass
+class Phase2ContinuationAblationConfig:
+    """Phase 2 continuation ablation configuration."""
+    enabled: bool = True
+    variant: str = "baseline_think_newline"
+    max_events: int = 150
+    subset_name: str = "mlp_27_only"
+    scales: list[float] = field(default_factory=lambda: [0.0, 0.5, 0.9])
+
+
+@dataclass
+class Phase2ReportConfig:
+    """Phase 2 report configuration."""
+    report_path: str = "reports/backtracking_phase2_report.md"
+
+
+@dataclass
+class Phase2Config:
+    """Phase 2 specific configuration."""
+    max_examples: int = 120
+    num_samples_per_prompt: int = 4
+    compute_baseline_only_metrics: bool = True
+    decode_only: bool = True
+    hook_debug: bool = True
+    phase1_run_id: str | None = None
+    subset_sweep: Phase2SubsetSweepConfig = field(default_factory=Phase2SubsetSweepConfig)
+    scale_sweep: Phase2ScaleSweepConfig = field(default_factory=Phase2ScaleSweepConfig)
+    continuation_ablation: Phase2ContinuationAblationConfig = field(default_factory=Phase2ContinuationAblationConfig)
+    report: Phase2ReportConfig = field(default_factory=Phase2ReportConfig)
+
+
 @dataclass
 class ExperimentConfig:
     """Complete experiment configuration."""
@@ -126,6 +178,9 @@ class ExperimentConfig:
     analysis: AnalysisConfig = field(default_factory=AnalysisConfig)
     ablation_generation: AblationGenerationConfig = field(default_factory=AblationGenerationConfig)
     report: ReportConfig = field(default_factory=ReportConfig)
+    
+    # Phase 2 configuration (optional)
+    phase2: Phase2Config | None = None
     
     # Resolved paths (set after loading)
     _config_path: Path | None = field(default=None, repr=False)
@@ -183,6 +238,24 @@ def load_config(config_path: str | Path) -> ExperimentConfig:
     
     if "report" in raw:
         config.report = ReportConfig(**raw["report"])
+    
+    # Parse Phase 2 configuration if present
+    if "phase2" in raw:
+        phase2_data = raw["phase2"].copy()
+        
+        # Parse nested configs
+        subset_sweep_data = phase2_data.pop("subset_sweep", {})
+        scale_sweep_data = phase2_data.pop("scale_sweep", {})
+        cont_ablation_data = phase2_data.pop("continuation_ablation", {})
+        report_data = phase2_data.pop("report", {})
+        
+        config.phase2 = Phase2Config(
+            **phase2_data,
+            subset_sweep=Phase2SubsetSweepConfig(**subset_sweep_data) if subset_sweep_data else Phase2SubsetSweepConfig(),
+            scale_sweep=Phase2ScaleSweepConfig(**scale_sweep_data) if scale_sweep_data else Phase2ScaleSweepConfig(),
+            continuation_ablation=Phase2ContinuationAblationConfig(**cont_ablation_data) if cont_ablation_data else Phase2ContinuationAblationConfig(),
+            report=Phase2ReportConfig(**report_data) if report_data else Phase2ReportConfig(),
+        )
     
     return config
 

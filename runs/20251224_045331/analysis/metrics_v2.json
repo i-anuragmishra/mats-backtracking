@@ -1,0 +1,84 @@
+{
+  "baseline_only_summary": {
+    "condition": "baseline_only",
+    "total_samples": 3600,
+    "backtracking_strict_count": 2452,
+    "backtracking_strict_rate": 0.6811111111111111,
+    "backtracking_relaxed_count": 2488,
+    "backtracking_relaxed_rate": 0.6911111111111111,
+    "correct_count": 714,
+    "incorrect_count": 2868,
+    "unknown_count": 18,
+    "accuracy": 0.19932998324958123,
+    "accuracy_with_backtracking": 0.23735725938009788,
+    "accuracy_without_backtracking": 0.11498257839721254
+  },
+  "backtracking_vs_accuracy": {
+    "baseline_only": true,
+    "with_backtracking": {
+      "count": 2452,
+      "correct": 582,
+      "accuracy": 0.23735725938009788
+    },
+    "without_backtracking": {
+      "count": 1148,
+      "correct": 132,
+      "accuracy": 0.11498257839721254
+    },
+    "accuracy_lift_ratio": 2.0642888921844875,
+    "accuracy_difference": 0.12237468098288534
+  },
+  "formatting_effect": {
+    "baseline_only": true,
+    "by_variant": {
+      "think_same_line": {
+        "total": 1200,
+        "backtracking_count": 818,
+        "backtracking_rate": 0.6816666666666666,
+        "correct": 236,
+        "accuracy": 0.19666666666666666
+      },
+      "no_think_tags": {
+        "total": 1200,
+        "backtracking_count": 784,
+        "backtracking_rate": 0.6533333333333333,
+        "correct": 219,
+        "accuracy": 0.1825
+      },
+      "baseline_think_newline": {
+        "total": 1200,
+        "backtracking_count": 850,
+        "backtracking_rate": 0.7083333333333334,
+        "correct": 259,
+        "accuracy": 0.21583333333333332
+      }
+    }
+  },
+  "variant_specific": {
+    "variant": "baseline_think_newline",
+    "total": 3600,
+    "by_condition": {
+      "random_ablation": {
+        "total": 1200,
+        "backtracking_count": 659,
+        "backtracking_rate": 0.5491666666666667,
+        "correct": 19,
+        "accuracy": 0.015833333333333335
+      },
+      "baseline": {
+        "total": 1200,
+        "backtracking_count": 850,
+        "backtracking_rate": 0.7083333333333334,
+        "correct": 259,
+        "accuracy": 0.21583333333333332
+      },
+      "targeted_ablation": {
+        "total": 1200,
+        "backtracking_count": 34,
+        "backtracking_rate": 0.028333333333333332,
+        "correct": 14,
+        "accuracy": 0.011666666666666667
+      }
+    }
+  }
+}

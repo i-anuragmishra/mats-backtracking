@@ -609,6 +609,431 @@ def make_report(
     console.print(f"\n[bold green]✓ Report generated: {output_path}[/bold green]")
 
 
+# =============================================================================
+# Phase 2 Commands
+# =============================================================================
+
+@app.command()
+def metrics_v2(
+    config: str = typer.Option(..., "--config", "-c", help="Path to YAML config file"),
+    phase1_run_id: Optional[str] = typer.Option(None, "--phase1-run-id", help="Phase 1 run ID to read events from"),
+    run_id: Optional[str] = typer.Option(None, "--run-id", help="Override run ID"),
+):
+    """
+    Compute deconfounded baseline-only metrics (Phase 2).
+    
+    Produces metrics_v2.json with baseline-only statistics that avoid
+    confounding ablation conditions with baseline behavior.
+    """
+    from backtracking.analysis.metrics_v2 import save_metrics_v2
+    from backtracking.analysis.plots_phase2 import plot_baseline_only_summary
+    from backtracking.io import read_csv
+    from backtracking.paths import get_events_file
+    
+    cfg, rid = load_config_and_resolve_run(config, run_id)
+    
+    console.print(f"[bold blue]Computing Phase 2 deconfounded metrics[/bold blue]")
+    console.print(f"  Run ID: {rid}")
+    
+    # Determine which run to read events from
+    events_run_id = phase1_run_id or rid
+    if phase1_run_id:
+        console.print(f"  Reading events from Phase 1 run: {phase1_run_id}")
+    
+    # Load events
+    events_file = get_events_file(events_run_id)
+    if not events_file.exists():
+        console.print(f"[red]Error: Events file not found: {events_file}[/red]")
+        console.print("[yellow]Run detect-events first, or specify --phase1-run-id[/yellow]")
+        raise typer.Exit(1)
+    
+    all_events = read_csv(events_file)
+    console.print(f"  Loaded {len(all_events)} events")
+    
+    # Get primary variant
+    variant = cfg.phase2.subset_sweep.variant if hasattr(cfg, "phase2") else "baseline_think_newline"
+    
+    # Compute and save metrics
+    metrics = save_metrics_v2(all_events, rid, variant)
+    
+    # Report summary
+    baseline = metrics.get("baseline_only_summary", {})
+    if baseline and "error" not in baseline:
+        console.print(f"\n  [bold]Baseline-only summary:[/bold]")
+        console.print(f"    Total samples: {baseline.get('total_samples', 0)}")
+        console.print(f"    Backtracking rate: {baseline.get('backtracking_strict_rate', 0)*100:.1f}%")
+        console.print(f"    Accuracy: {(baseline.get('accuracy') or 0)*100:.1f}%")
+        console.print(f"    Accuracy w/ BT: {(baseline.get('accuracy_with_backtracking') or 0)*100:.1f}%")
+        console.print(f"    Accuracy w/o BT: {(baseline.get('accuracy_without_backtracking') or 0)*100:.1f}%")
+    
+    # Generate figure
+    plot_baseline_only_summary(metrics, rid)
+    
+    console.print(f"\n[bold green]✓ Phase 2 metrics complete[/bold green]")
+
+
+@app.command()
+def phase2_subset_sweep(
+    config: str = typer.Option(..., "--config", "-c", help="Path to YAML config file"),
+    run_id: Optional[str] = typer.Option(None, "--run-id", help="Override run ID"),
+):
+    """
+    Run Phase 2 subset ablation sweep.
+    
+    Tests different layer subsets to find non-destructive interventions
+    that reduce backtracking without collapsing accuracy.
+    """
+    from backtracking.analysis.plots_phase2 import plot_subset_sweep_comparison
+    from backtracking.analysis.sweeps import find_best_tradeoff, run_subset_sweep
+    from backtracking.io import read_jsonl
+    from backtracking.modeling import load_model_and_tokenizer
+    from backtracking.seed import set_seed
+    
+    cfg, rid = load_config_and_resolve_run(config, run_id)
+    
+    console.print(f"[bold blue]Running Phase 2 subset sweep[/bold blue]")
+    console.print(f"  Run ID: {rid}")
+    
+    if not hasattr(cfg, "phase2"):
+        console.print("[red]Error: Config missing phase2 section[/red]")
+        raise typer.Exit(1)
+    
+    set_seed(cfg.run.seed)
+    
+    # Load model
+    model, tokenizer = load_model_and_tokenizer(cfg.model)
+    
+    # Load dataset
+    dataset_path = PROJECT_ROOT / cfg.dataset.save_path
+    dataset = read_jsonl(dataset_path)
+    console.print(f"  Loaded {len(dataset)} examples")
+    
+    # Get subset names
+    subsets = cfg.phase2.subset_sweep.subsets
+    console.print(f"  Testing {len(subsets)} subsets: {list(subsets.keys())}")
+    
+    # Run sweep
+    results = run_subset_sweep(
+        model=model,
+        tokenizer=tokenizer,
+        dataset=dataset,
+        config=cfg,
+        run_id=rid,
+    )
+    
+    # Report results
+    console.print(f"\n  [bold]Results:[/bold]")
+    for r in results:
+        console.print(f"    {r['subset_name']}: BT={r['backtracking_rate']*100:.1f}%, Acc={r['accuracy']*100:.1f}%")
+    
+    # Find best tradeoff
+    baseline_bt = next((r["backtracking_rate"] for r in results if r["subset_name"] == "baseline"), 0.7)
+    best = find_best_tradeoff(results, baseline_bt, min_accuracy_retention=0.5)
+    if best:
+        console.print(f"\n  [bold green]Best tradeoff:[/bold green] {best['subset_name']}")
+        console.print(f"    BT reduction: {best['bt_reduction']*100:.1f}%")
+        console.print(f"    Accuracy retention: {best['accuracy_retention']*100:.1f}%")
+    
+    # Generate figure
+    plot_subset_sweep_comparison(results, rid)
+    
+    console.print(f"\n[bold green]✓ Subset sweep complete[/bold green]")
+
+
+@app.command()
+def phase2_scale_sweep(
+    config: str = typer.Option(..., "--config", "-c", help="Path to YAML config file"),
+    run_id: Optional[str] = typer.Option(None, "--run-id", help="Override run ID"),
+):
+    """
+    Run Phase 2 scale factor sweep.
+    
+    Sweeps different scale factors (0.0 to 1.0) for the best subset
+    to find the optimal tradeoff between backtracking reduction and accuracy.
+    """
+    from backtracking.analysis.plots_phase2 import plot_scale_tradeoff_curve
+    from backtracking.analysis.sweeps import run_scale_sweep
+    from backtracking.io import read_jsonl
+    from backtracking.modeling import load_model_and_tokenizer
+    from backtracking.seed import set_seed
+    
+    cfg, rid = load_config_and_resolve_run(config, run_id)
+    
+    console.print(f"[bold blue]Running Phase 2 scale sweep[/bold blue]")
+    console.print(f"  Run ID: {rid}")
+    
+    if not hasattr(cfg, "phase2"):
+        console.print("[red]Error: Config missing phase2 section[/red]")
+        raise typer.Exit(1)
+    
+    set_seed(cfg.run.seed)
+    
+    # Load model
+    model, tokenizer = load_model_and_tokenizer(cfg.model)
+    
+    # Load dataset
+    dataset_path = PROJECT_ROOT / cfg.dataset.save_path
+    dataset = read_jsonl(dataset_path)
+    console.print(f"  Loaded {len(dataset)} examples")
+    
+    subset_name = cfg.phase2.scale_sweep.subset_name
+    scales = cfg.phase2.scale_sweep.scales
+    console.print(f"  Subset: {subset_name}")
+    console.print(f"  Scales: {scales}")
+    
+    # Run sweep
+    results = run_scale_sweep(
+        model=model,
+        tokenizer=tokenizer,
+        dataset=dataset,
+        config=cfg,
+        run_id=rid,
+    )
+    
+    # Report results
+    console.print(f"\n  [bold]Results:[/bold]")
+    for r in results:
+        console.print(f"    scale={r['scale']}: BT={r['backtracking_rate']*100:.1f}%, Acc={r['accuracy']*100:.1f}%")
+    
+    # Generate figure
+    plot_scale_tradeoff_curve(results, rid)
+    
+    console.print(f"\n[bold green]✓ Scale sweep complete[/bold green]")
+
+
+@app.command()
+def phase2_continuation_ablation(
+    config: str = typer.Option(..., "--config", "-c", help="Path to YAML config file"),
+    phase1_run_id: Optional[str] = typer.Option(None, "--phase1-run-id", help="Phase 1 run ID to read events from"),
+    run_id: Optional[str] = typer.Option(None, "--run-id", help="Override run ID"),
+):
+    """
+    Run Phase 2 continuation-only ablation analysis.
+    
+    Measures P(onset_token) at the prediction position under various
+    ablation conditions. This is a minimal intervention analysis.
+    """
+    from backtracking.analysis.continuations import run_continuation_ablation
+    from backtracking.analysis.plots_phase2 import plot_continuation_ablation_effect
+    from backtracking.io import read_csv
+    from backtracking.modeling import load_model_and_tokenizer
+    from backtracking.paths import get_continuation_ablation_file
+    from backtracking.seed import set_seed
+    
+    cfg, rid = load_config_and_resolve_run(config, run_id)
+    
+    console.print(f"[bold blue]Running Phase 2 continuation ablation[/bold blue]")
+    console.print(f"  Run ID: {rid}")
+    
+    if not hasattr(cfg, "phase2"):
+        console.print("[red]Error: Config missing phase2 section[/red]")
+        raise typer.Exit(1)
+    
+    events_run_id = phase1_run_id or rid
+    if phase1_run_id:
+        console.print(f"  Reading events from Phase 1 run: {phase1_run_id}")
+    
+    set_seed(cfg.run.seed)
+    
+    # Load model
+    model, tokenizer = load_model_and_tokenizer(cfg.model)
+    
+    subset_name = cfg.phase2.continuation_ablation.subset_name
+    scales = cfg.phase2.continuation_ablation.scales
+    console.print(f"  Subset: {subset_name}")
+    console.print(f"  Scales: {scales}")
+    
+    # Run analysis
+    results = run_continuation_ablation(
+        model=model,
+        tokenizer=tokenizer,
+        config=cfg,
+        run_id=rid,
+        phase1_run_id=events_run_id,
+    )
+    
+    console.print(f"  Processed {len(results)} measurements")
+    
+    # Generate figure if we have results
+    output_file = get_continuation_ablation_file(rid)
+    if output_file.exists():
+        cont_results = read_csv(output_file)
+        plot_continuation_ablation_effect(cont_results, rid)
+    
+    console.print(f"\n[bold green]✓ Continuation ablation complete[/bold green]")
+
+
+@app.command()
+def make_report_phase2(
+    config: str = typer.Option(..., "--config", "-c", help="Path to YAML config file"),
+    phase1_run_id: Optional[str] = typer.Option(None, "--phase1-run-id", help="Phase 1 run ID for reference"),
+    run_id: Optional[str] = typer.Option(None, "--run-id", help="Override run ID"),
+):
+    """
+    Generate Phase 2 markdown report.
+    
+    Combines Phase 1 baseline data with Phase 2 sweep results into
+    a proposal-ready report.
+    """
+    from datetime import datetime
+    
+    from backtracking.io import read_csv, read_json
+    from backtracking.paths import (
+        get_continuation_ablation_file,
+        get_metrics_v2_file,
+        get_reports_dir,
+        get_run_dir,
+        get_scale_sweep_file,
+        get_subset_sweep_file,
+    )
+    
+    cfg, rid = load_config_and_resolve_run(config, run_id)
+    
+    console.print(f"[bold blue]Generating Phase 2 report[/bold blue]")
+    console.print(f"  Run ID: {rid}")
+    
+    # Load available data
+    metrics_v2 = None
+    subset_results = None
+    scale_results = None
+    cont_results = None
+    
+    metrics_file = get_metrics_v2_file(rid)
+    if metrics_file.exists():
+        metrics_v2 = read_json(metrics_file)
+    
+    subset_file = get_subset_sweep_file(rid)
+    if subset_file.exists():
+        subset_results = read_csv(subset_file)
+    
+    scale_file = get_scale_sweep_file(rid)
+    if scale_file.exists():
+        scale_results = read_csv(scale_file)
+    
+    cont_file = get_continuation_ablation_file(rid)
+    if cont_file.exists():
+        cont_results = read_csv(cont_file)
+    
+    # Generate report
+    report_path = cfg.phase2.report.report_path if hasattr(cfg, "phase2") else "reports/backtracking_phase2_report.md"
+    output_path = PROJECT_ROOT / report_path
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    
+    lines = [
+        "# Backtracking State Transition - Phase 2 Report",
+        "",
+        f"**Run ID:** `{rid}`",
+        f"**Generated:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}",
+        f"**Model:** `{cfg.model.hf_id}`",
+        "",
+        "---",
+        "",
+        "## 1. Deconfounded Baseline Metrics",
+        "",
+    ]
+    
+    if metrics_v2:
+        baseline = metrics_v2.get("baseline_only_summary", {})
+        if baseline and "error" not in baseline:
+            lines.extend([
+                "| Metric | Value |",
+                "|--------|-------|",
+                f"| Total Samples (baseline only) | {baseline.get('total_samples', 0)} |",
+                f"| Backtracking Rate | {baseline.get('backtracking_strict_rate', 0)*100:.1f}% |",
+                f"| Overall Accuracy | {(baseline.get('accuracy') or 0)*100:.1f}% |",
+                f"| Accuracy WITH Backtracking | {(baseline.get('accuracy_with_backtracking') or 0)*100:.1f}% |",
+                f"| Accuracy WITHOUT Backtracking | {(baseline.get('accuracy_without_backtracking') or 0)*100:.1f}% |",
+                "",
+            ])
+            
+            bt_acc = metrics_v2.get("backtracking_vs_accuracy", {})
+            if bt_acc and bt_acc.get("accuracy_lift_ratio"):
+                lines.append(f"**Accuracy Lift from Backtracking:** {bt_acc['accuracy_lift_ratio']:.2f}x")
+                lines.append("")
+    else:
+        lines.append("*No baseline metrics computed. Run `metrics-v2` first.*")
+        lines.append("")
+    
+    lines.extend([
+        "![Baseline Summary](../figures/phase2_baseline_summary.png)",
+        "",
+        "---",
+        "",
+        "## 2. Subset Sweep Results",
+        "",
+    ])
+    
+    if subset_results:
+        lines.extend([
+            "| Subset | Components | BT Rate | Accuracy |",
+            "|--------|------------|---------|----------|",
+        ])
+        for r in subset_results:
+            lines.append(f"| {r['subset_name']} | {r.get('num_components', 'N/A')} | {float(r['backtracking_rate'])*100:.1f}% | {float(r['accuracy'])*100:.1f}% |")
+        lines.extend(["", "![Subset Sweep](../figures/phase2_subset_sweep.png)", ""])
+    else:
+        lines.append("*No subset sweep results. Run `phase2-subset-sweep` first.*")
+        lines.append("")
+    
+    lines.extend([
+        "---",
+        "",
+        "## 3. Scale Sweep Results",
+        "",
+    ])
+    
+    if scale_results:
+        lines.extend([
+            "| Scale | BT Rate | Accuracy |",
+            "|-------|---------|----------|",
+        ])
+        for r in scale_results:
+            lines.append(f"| {r['scale']} | {float(r['backtracking_rate'])*100:.1f}% | {float(r['accuracy'])*100:.1f}% |")
+        lines.extend(["", "![Scale Tradeoff](../figures/phase2_scale_tradeoff.png)", ""])
+    else:
+        lines.append("*No scale sweep results. Run `phase2-scale-sweep` first.*")
+        lines.append("")
+    
+    lines.extend([
+        "---",
+        "",
+        "## 4. Continuation Ablation Analysis",
+        "",
+    ])
+    
+    if cont_results:
+        lines.append(f"Analyzed {len(cont_results)} measurements.")
+        lines.extend(["", "![Continuation Effect](../figures/phase2_continuation_effect.png)", ""])
+    else:
+        lines.append("*No continuation ablation results. Run `phase2-continuation-ablation` first.*")
+        lines.append("")
+    
+    lines.extend([
+        "---",
+        "",
+        "## 5. Conclusions",
+        "",
+        "### Key Findings",
+        "",
+        "1. **Deconfounded metrics** show baseline backtracking behavior without ablation artifacts.",
+        "2. **Subset sweep** identifies which layer combinations affect backtracking.",
+        "3. **Scale sweep** reveals the tradeoff curve between backtracking reduction and accuracy.",
+        "4. **Continuation analysis** measures the direct effect on onset token probability.",
+        "",
+        "### Recommendations",
+        "",
+        "- Use the subset with best BT reduction while retaining >50% accuracy",
+        "- Scale factors between 0.5-0.75 may offer a good tradeoff",
+        "- Further investigation into early attention layers (0-1) vs late MLP layers (19-27)",
+        "",
+    ])
+    
+    # Write report
+    output_path.write_text("\n".join(lines))
+    
+    console.print(f"\n[bold green]✓ Phase 2 report generated: {output_path}[/bold green]")
+
+
 @app.command()
 def doctor():
     """

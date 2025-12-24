@@ -110,6 +110,51 @@ def get_formatting_summary_file(run_id: str) -> Path:
     return get_analysis_dir(run_id) / "formatting_summary.csv"
 
 
+# =============================================================================
+# Phase 2 Path Helpers
+# =============================================================================
+
+def get_metrics_v2_file(run_id: str) -> Path:
+    """Get path to metrics_v2.json (deconfounded baseline-only metrics)."""
+    return get_analysis_dir(run_id) / "metrics_v2.json"
+
+
+def get_subset_sweep_file(run_id: str) -> Path:
+    """Get path to subset_sweep_results.csv."""
+    return get_analysis_dir(run_id) / "subset_sweep_results.csv"
+
+
+def get_scale_sweep_file(run_id: str) -> Path:
+    """Get path to scale_sweep_results.csv."""
+    return get_analysis_dir(run_id) / "scale_sweep_results.csv"
+
+
+def get_continuation_ablation_file(run_id: str) -> Path:
+    """Get path to continuation_ablation_results.csv."""
+    return get_analysis_dir(run_id) / "continuation_ablation_results.csv"
+
+
+def get_hook_debug_file(run_id: str) -> Path:
+    """Get path to hook_debug.json."""
+    return get_analysis_dir(run_id) / "hook_debug.json"
+
+
+def get_phase2_generations_dir(run_id: str, sweep_type: str) -> Path:
+    """
+    Get the Phase 2 generations directory for sweep outputs.
+    
+    Args:
+        run_id: The run identifier
+        sweep_type: Type of sweep (subset_sweep, scale_sweep)
+        
+    Returns:
+        Path to runs/<run_id>/generations/phase2/<sweep_type>/
+    """
+    path = get_run_dir(run_id) / "generations" / "phase2" / sweep_type
+    path.mkdir(parents=True, exist_ok=True)
+    return path
+
+
 def get_run_figures_dir(run_id: str) -> Path:
     """
     Get the figures directory within a run.

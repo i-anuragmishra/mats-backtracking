@@ -1,0 +1,91 @@
+run:
+  name: backtracking_state_transition_phase2
+  seed: 42
+  run_id: '20251224_045331'
+  output_dir: runs
+model:
+  hf_id: deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B
+  trust_remote_code: true
+  torch_dtype: bfloat16
+  device: cuda
+  attn_implementation: sdpa
+  use_cache: true
+dataset:
+  name: gsm8k
+  split: test
+  max_examples: 200
+  shuffle: true
+  seed: 123
+  save_path: data/processed/gsm8k_200.jsonl
+prompting:
+  system_prompt: You are a helpful assistant.
+  template: 'Solve the problem carefully.
+
+    Use <think> tags for your reasoning.
+
+    End with a single line: Final: <answer>
+
+
+    Problem: {question}
+
+    '
+  formatting_variants:
+  - name: baseline_think_newline
+    think_open: '<think>
+
+      '
+    think_close: '
+
+      </think>
+
+      '
+  - name: think_same_line
+    think_open: '<think> '
+    think_close: ' </think>
+
+      '
+  - name: no_think_tags
+    think_open: ''
+    think_close: ''
+generation:
+  num_samples_per_prompt: 6
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.95
+  do_sample: true
+  batch_size: 4
+detection:
+  triggers_strict:
+  - Wait
+  - Actually
+  - Hold on
+  triggers_relaxed:
+  - Wait
+  - Actually
+  - Hold on
+  - Let me check
+  - Let's check
+  - I was wrong
+  - mistake
+  onset_priority:
+  - Wait
+  - Actually
+  - Hold on
+  answer_regex: null
+analysis:
+  max_events: 120
+  control_samples: 120
+  logit_lens_token: Wait
+  ablation_components:
+  - attn
+  - mlp
+  ablation_layers: all
+  topk_layers_for_generation: 6
+ablation_generation:
+  enabled: true
+  mode: scale
+  scale: 0.0
+  random_control_seed: 999
+report:
+  make_report: true
+  report_path: reports/backtracking_state_transition_report.md

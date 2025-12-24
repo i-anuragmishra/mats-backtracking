@@ -1,0 +1,175 @@
+# =============================================================================
+# Backtracking State Transition Experiment - Phase 2 Configuration
+# =============================================================================
+# Phase 2 extends Phase 1 with:
+# - Deconfounded baseline-only metrics
+# - Non-destructive ablation sweeps (subset + scale)
+# - Continuation-only ablation analysis
+# - Hook instrumentation for debugging
+
+run:
+  name: "backtracking_state_transition_phase2"
+  seed: 42
+  run_id: null              # if null, auto-generate timestamp-based id via init-run
+  output_dir: "runs"        # base output dir
+
+model:
+  hf_id: "deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"
+  trust_remote_code: true
+  torch_dtype: "bfloat16"    # "float16" or "bfloat16"
+  device: "cuda"
+  attn_implementation: "sdpa"  # PyTorch native; use "flash_attention_2" if flash_attn installed
+  use_cache: true
+
+dataset:
+  name: "gsm8k"
+  split: "test"
+  max_examples: 200
+  shuffle: true
+  seed: 123
+  save_path: "data/processed/gsm8k_200.jsonl"
+
+prompting:
+  system_prompt: "You are a helpful assistant."
+  template: |
+    Solve the problem carefully.
+    Use <think> tags for your reasoning.
+    End with a single line: Final: <answer>
+
+    Problem: {question}
+
+  formatting_variants:
+    - name: "baseline_think_newline"
+      think_open: "<think>\n"
+      think_close: "\n</think>\n"
+    - name: "think_same_line"
+      think_open: "<think> "
+      think_close: " </think>\n"
+    - name: "no_think_tags"
+      think_open: ""
+      think_close: ""
+
+generation:
+  num_samples_per_prompt: 6
+  max_new_tokens: 512
+  temperature: 0.7
+  top_p: 0.95
+  do_sample: true
+  batch_size: 4
+
+detection:
+  triggers_strict:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+  triggers_relaxed:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+    - "Let me check"
+    - "Let's check"
+    - "I was wrong"
+    - "mistake"
+  onset_priority:
+    - "Wait"
+    - "Actually"
+    - "Hold on"
+  answer_regex: null
+
+analysis:
+  max_events: 120
+  control_samples: 120
+  logit_lens_token: "Wait"
+  ablation_components:
+    - "attn"
+    - "mlp"
+  ablation_layers: "all"
+  topk_layers_for_generation: 6
+
+ablation_generation:
+  enabled: true
+  mode: "scale"
+  scale: 0.0
+  random_control_seed: 999
+
+report:
+  make_report: true
+  report_path: "reports/backtracking_state_transition_report.md"
+
+# =============================================================================
+# Phase 2 Specific Configuration
+# =============================================================================
+
+phase2:
+  # Safety valve: sweeps create many outputs; keep dataset smaller
+  max_examples: 120
+  num_samples_per_prompt: 4
+
+  # Always compute baseline-only tables for proposal quoting
+  compute_baseline_only_metrics: true
+
+  # Ablation behavior changes for Phase 2
+  decode_only: true          # hook only applies when seq_len == 1 during generate
+  hook_debug: true           # log hook call counts and seq_len stats
+
+  # Reference to Phase 1 run for baseline data (set via CLI)
+  phase1_run_id: null
+
+  # Subset sweeps (non-destructive search)
+  subset_sweep:
+    enabled: true
+    variant: "baseline_think_newline"
+    # Define subsets by name -> list of [component, layer]
+    subsets:
+      mlp_27_only:
+        - ["mlp", 27]
+      attn_27_only:
+        - ["attn", 27]
+      attn_no_early:
+        - ["attn", 15]
+        - ["attn", 17]
+        - ["attn", 19]
+        - ["attn", 27]
+      mlp_late_cluster:
+        - ["mlp", 19]
+        - ["mlp", 20]
+        - ["mlp", 22]
+        - ["mlp", 23]
+        - ["mlp", 24]
+        - ["mlp", 27]
+      phase1_full:
+        # derived from selected_layers.json (attn + mlp combined)
+        - ["attn", 0]
+        - ["attn", 1]
+        - ["attn", 15]
+        - ["attn", 17]
+        - ["attn", 19]
+        - ["attn", 27]
+        - ["mlp", 19]
+        - ["mlp", 20]
+        - ["mlp", 22]
+        - ["mlp", 23]
+        - ["mlp", 24]
+        - ["mlp", 27]
+
+  # Scale sweep for best subset(s)
+  scale_sweep:
+    enabled: true
+    variant: "baseline_think_newline"
+    subset_name: "mlp_late_cluster"  # can change after subset sweep
+    scales: [0.0, 0.25, 0.5, 0.75, 0.9]
+
+  # Continuation-only ablation: ablate at onset step only (minimal collateral damage)
+  continuation_ablation:
+    enabled: true
+    variant: "baseline_think_newline"
+    max_events: 150
+    subset_name: "mlp_27_only"
+    scales: [0.0, 0.5, 0.9]
+    # We use prefixes ending at pred_pos (token before onset).
+    # We compute P(onset_token) and optionally sample 1-step continuation.
+
+  # Phase 2 report settings
+  report:
+    report_path: "reports/backtracking_phase2_report.md"
+
