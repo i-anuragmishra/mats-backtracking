@@ -32,6 +32,9 @@ export WANDB_CACHE_DIR="$PROJECT_ROOT/.cache/wandb"
 # Jupyter
 export JUPYTER_DATA_DIR="$PROJECT_ROOT/.cache/jupyter"
 
+# Matplotlib (avoids permission issues with ~/.config/matplotlib)
+export MPLCONFIGDIR="$PROJECT_ROOT/.cache/matplotlib"
+
 # Pip cache (optional, useful for offline work)
 export PIP_CACHE_DIR="$PROJECT_ROOT/.cache/pip"
 

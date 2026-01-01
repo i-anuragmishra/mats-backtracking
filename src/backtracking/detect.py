@@ -275,11 +275,14 @@ def normalize_answer(answer: str | None) -> str | None:
     # Try to convert to float for numeric comparison
     try:
         num = float(answer)
+        # Handle infinity (number too large)
+        if num == float('inf') or num == float('-inf'):
+            return answer.lower()
         # Return as int if whole number
         if num == int(num):
             return str(int(num))
         return str(num)
-    except ValueError:
+    except (ValueError, OverflowError):
         return answer.lower()
 
 
