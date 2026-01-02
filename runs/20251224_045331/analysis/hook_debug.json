@@ -1,0 +1,72 @@
+{
+  "enabled": false,
+  "total_calls": 4920,
+  "ablation_calls": 4908,
+  "skipped_calls": 12,
+  "seq_len_distribution": {
+    "88": 12,
+    "1": 4908
+  },
+  "by_layer": {
+    "attn_0": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "attn_1": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "attn_15": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "attn_17": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "attn_19": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_19": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_20": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_22": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_23": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_24": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "attn_27": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    },
+    "mlp_27": {
+      "total": 410,
+      "ablated": 409,
+      "skipped": 1
+    }
+  }
+}
