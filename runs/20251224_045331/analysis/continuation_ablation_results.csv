@@ -1,0 +1,451 @@
+example_id,sample_id,variant,pred_pos,onset_token_id,onset_token_text,subset_name,scale,num_components
+0,1,baseline_think_newline,197,3783, wait,mlp_27_only,0.0,1
+0,1,baseline_think_newline,197,3783, wait,mlp_27_only,0.5,1
+0,1,baseline_think_newline,197,3783, wait,mlp_27_only,0.9,1
+0,4,baseline_think_newline,411,14190,Wait,mlp_27_only,0.0,1
+0,4,baseline_think_newline,411,14190,Wait,mlp_27_only,0.5,1
+0,4,baseline_think_newline,411,14190,Wait,mlp_27_only,0.9,1
+0,5,baseline_think_newline,245,3783, wait,mlp_27_only,0.0,1
+0,5,baseline_think_newline,245,3783, wait,mlp_27_only,0.5,1
+0,5,baseline_think_newline,245,3783, wait,mlp_27_only,0.9,1
+1,0,baseline_think_newline,319,14190,Wait,mlp_27_only,0.0,1
+1,0,baseline_think_newline,319,14190,Wait,mlp_27_only,0.5,1
+1,0,baseline_think_newline,319,14190,Wait,mlp_27_only,0.9,1
+1,1,baseline_think_newline,368,14190,Wait,mlp_27_only,0.0,1
+1,1,baseline_think_newline,368,14190,Wait,mlp_27_only,0.5,1
+1,1,baseline_think_newline,368,14190,Wait,mlp_27_only,0.9,1
+1,3,baseline_think_newline,98,14190,Wait,mlp_27_only,0.0,1
+1,3,baseline_think_newline,98,14190,Wait,mlp_27_only,0.5,1
+1,3,baseline_think_newline,98,14190,Wait,mlp_27_only,0.9,1
+2,0,baseline_think_newline,453,14190,Wait,mlp_27_only,0.0,1
+2,0,baseline_think_newline,453,14190,Wait,mlp_27_only,0.5,1
+2,0,baseline_think_newline,453,14190,Wait,mlp_27_only,0.9,1
+2,1,baseline_think_newline,304,3783, wait,mlp_27_only,0.0,1
+2,1,baseline_think_newline,304,3783, wait,mlp_27_only,0.5,1
+2,1,baseline_think_newline,304,3783, wait,mlp_27_only,0.9,1
+2,2,baseline_think_newline,207,14190,Wait,mlp_27_only,0.0,1
+2,2,baseline_think_newline,207,14190,Wait,mlp_27_only,0.5,1
+2,2,baseline_think_newline,207,14190,Wait,mlp_27_only,0.9,1
+2,5,baseline_think_newline,505,14190,Wait,mlp_27_only,0.0,1
+2,5,baseline_think_newline,505,14190,Wait,mlp_27_only,0.5,1
+2,5,baseline_think_newline,505,14190,Wait,mlp_27_only,0.9,1
+3,4,baseline_think_newline,249,14190,Wait,mlp_27_only,0.0,1
+3,4,baseline_think_newline,249,14190,Wait,mlp_27_only,0.5,1
+3,4,baseline_think_newline,249,14190,Wait,mlp_27_only,0.9,1
+3,5,baseline_think_newline,526,14190,Wait,mlp_27_only,0.0,1
+3,5,baseline_think_newline,526,14190,Wait,mlp_27_only,0.5,1
+3,5,baseline_think_newline,526,14190,Wait,mlp_27_only,0.9,1
+4,0,baseline_think_newline,434,14190,Wait,mlp_27_only,0.0,1
+4,0,baseline_think_newline,434,14190,Wait,mlp_27_only,0.5,1
+4,0,baseline_think_newline,434,14190,Wait,mlp_27_only,0.9,1
+4,2,baseline_think_newline,468,14190,Wait,mlp_27_only,0.0,1
+4,2,baseline_think_newline,468,14190,Wait,mlp_27_only,0.5,1
+4,2,baseline_think_newline,468,14190,Wait,mlp_27_only,0.9,1
+4,3,baseline_think_newline,405,14190,Wait,mlp_27_only,0.0,1
+4,3,baseline_think_newline,405,14190,Wait,mlp_27_only,0.5,1
+4,3,baseline_think_newline,405,14190,Wait,mlp_27_only,0.9,1
+4,4,baseline_think_newline,249,3783, wait,mlp_27_only,0.0,1
+4,4,baseline_think_newline,249,3783, wait,mlp_27_only,0.5,1
+4,4,baseline_think_newline,249,3783, wait,mlp_27_only,0.9,1
+4,5,baseline_think_newline,176,3783, wait,mlp_27_only,0.0,1
+4,5,baseline_think_newline,176,3783, wait,mlp_27_only,0.5,1
+4,5,baseline_think_newline,176,3783, wait,mlp_27_only,0.9,1
+5,0,baseline_think_newline,540,13824, Wait,mlp_27_only,0.0,1
+5,0,baseline_think_newline,540,13824, Wait,mlp_27_only,0.5,1
+5,0,baseline_think_newline,540,13824, Wait,mlp_27_only,0.9,1
+5,1,baseline_think_newline,327,13824, Wait,mlp_27_only,0.0,1
+5,1,baseline_think_newline,327,13824, Wait,mlp_27_only,0.5,1
+5,1,baseline_think_newline,327,13824, Wait,mlp_27_only,0.9,1
+5,2,baseline_think_newline,547,14190,Wait,mlp_27_only,0.0,1
+5,2,baseline_think_newline,547,14190,Wait,mlp_27_only,0.5,1
+5,2,baseline_think_newline,547,14190,Wait,mlp_27_only,0.9,1
+5,3,baseline_think_newline,479,13824, Wait,mlp_27_only,0.0,1
+5,3,baseline_think_newline,479,13824, Wait,mlp_27_only,0.5,1
+5,3,baseline_think_newline,479,13824, Wait,mlp_27_only,0.9,1
+5,4,baseline_think_newline,437,14190,Wait,mlp_27_only,0.0,1
+5,4,baseline_think_newline,437,14190,Wait,mlp_27_only,0.5,1
+5,4,baseline_think_newline,437,14190,Wait,mlp_27_only,0.9,1
+6,5,baseline_think_newline,377,14190,Wait,mlp_27_only,0.0,1
+6,5,baseline_think_newline,377,14190,Wait,mlp_27_only,0.5,1
+6,5,baseline_think_newline,377,14190,Wait,mlp_27_only,0.9,1
+7,0,baseline_think_newline,438,14190,Wait,mlp_27_only,0.0,1
+7,0,baseline_think_newline,438,14190,Wait,mlp_27_only,0.5,1
+7,0,baseline_think_newline,438,14190,Wait,mlp_27_only,0.9,1
+7,1,baseline_think_newline,467,14190,Wait,mlp_27_only,0.0,1
+7,1,baseline_think_newline,467,14190,Wait,mlp_27_only,0.5,1
+7,1,baseline_think_newline,467,14190,Wait,mlp_27_only,0.9,1
+7,2,baseline_think_newline,319,14190,Wait,mlp_27_only,0.0,1
+7,2,baseline_think_newline,319,14190,Wait,mlp_27_only,0.5,1
+7,2,baseline_think_newline,319,14190,Wait,mlp_27_only,0.9,1
+7,3,baseline_think_newline,447,14190,Wait,mlp_27_only,0.0,1
+7,3,baseline_think_newline,447,14190,Wait,mlp_27_only,0.5,1
+7,3,baseline_think_newline,447,14190,Wait,mlp_27_only,0.9,1
+7,4,baseline_think_newline,424,14190,Wait,mlp_27_only,0.0,1
+7,4,baseline_think_newline,424,14190,Wait,mlp_27_only,0.5,1
+7,4,baseline_think_newline,424,14190,Wait,mlp_27_only,0.9,1
+7,5,baseline_think_newline,349,14190,Wait,mlp_27_only,0.0,1
+7,5,baseline_think_newline,349,14190,Wait,mlp_27_only,0.5,1
+7,5,baseline_think_newline,349,14190,Wait,mlp_27_only,0.9,1
+8,0,baseline_think_newline,433,3783, wait,mlp_27_only,0.0,1
+8,0,baseline_think_newline,433,3783, wait,mlp_27_only,0.5,1
+8,0,baseline_think_newline,433,3783, wait,mlp_27_only,0.9,1
+8,1,baseline_think_newline,287,14190,Wait,mlp_27_only,0.0,1
+8,1,baseline_think_newline,287,14190,Wait,mlp_27_only,0.5,1
+8,1,baseline_think_newline,287,14190,Wait,mlp_27_only,0.9,1
+8,3,baseline_think_newline,199,14190,Wait,mlp_27_only,0.0,1
+8,3,baseline_think_newline,199,14190,Wait,mlp_27_only,0.5,1
+8,3,baseline_think_newline,199,14190,Wait,mlp_27_only,0.9,1
+8,4,baseline_think_newline,231,14190,Wait,mlp_27_only,0.0,1
+8,4,baseline_think_newline,231,14190,Wait,mlp_27_only,0.5,1
+8,4,baseline_think_newline,231,14190,Wait,mlp_27_only,0.9,1
+8,5,baseline_think_newline,258,14190,Wait,mlp_27_only,0.0,1
+8,5,baseline_think_newline,258,14190,Wait,mlp_27_only,0.5,1
+8,5,baseline_think_newline,258,14190,Wait,mlp_27_only,0.9,1
+9,2,baseline_think_newline,171,13824, Wait,mlp_27_only,0.0,1
+9,2,baseline_think_newline,171,13824, Wait,mlp_27_only,0.5,1
+9,2,baseline_think_newline,171,13824, Wait,mlp_27_only,0.9,1
+9,4,baseline_think_newline,265,14190,Wait,mlp_27_only,0.0,1
+9,4,baseline_think_newline,265,14190,Wait,mlp_27_only,0.5,1
+9,4,baseline_think_newline,265,14190,Wait,mlp_27_only,0.9,1
+9,5,baseline_think_newline,164,14190,Wait,mlp_27_only,0.0,1
+9,5,baseline_think_newline,164,14190,Wait,mlp_27_only,0.5,1
+9,5,baseline_think_newline,164,14190,Wait,mlp_27_only,0.9,1
+10,0,baseline_think_newline,176,3520, actually,mlp_27_only,0.0,1
+10,0,baseline_think_newline,176,3520, actually,mlp_27_only,0.5,1
+10,0,baseline_think_newline,176,3520, actually,mlp_27_only,0.9,1
+10,2,baseline_think_newline,393,13824, Wait,mlp_27_only,0.0,1
+10,2,baseline_think_newline,393,13824, Wait,mlp_27_only,0.5,1
+10,2,baseline_think_newline,393,13824, Wait,mlp_27_only,0.9,1
+10,3,baseline_think_newline,304,3520, actually,mlp_27_only,0.0,1
+10,3,baseline_think_newline,304,3520, actually,mlp_27_only,0.5,1
+10,3,baseline_think_newline,304,3520, actually,mlp_27_only,0.9,1
+10,4,baseline_think_newline,297,3783, wait,mlp_27_only,0.0,1
+10,4,baseline_think_newline,297,3783, wait,mlp_27_only,0.5,1
+10,4,baseline_think_newline,297,3783, wait,mlp_27_only,0.9,1
+10,5,baseline_think_newline,167,3520, actually,mlp_27_only,0.0,1
+10,5,baseline_think_newline,167,3520, actually,mlp_27_only,0.5,1
+10,5,baseline_think_newline,167,3520, actually,mlp_27_only,0.9,1
+11,0,baseline_think_newline,208,14190,Wait,mlp_27_only,0.0,1
+11,0,baseline_think_newline,208,14190,Wait,mlp_27_only,0.5,1
+11,0,baseline_think_newline,208,14190,Wait,mlp_27_only,0.9,1
+11,1,baseline_think_newline,330,3783, wait,mlp_27_only,0.0,1
+11,1,baseline_think_newline,330,3783, wait,mlp_27_only,0.5,1
+11,1,baseline_think_newline,330,3783, wait,mlp_27_only,0.9,1
+11,2,baseline_think_newline,326,14190,Wait,mlp_27_only,0.0,1
+11,2,baseline_think_newline,326,14190,Wait,mlp_27_only,0.5,1
+11,2,baseline_think_newline,326,14190,Wait,mlp_27_only,0.9,1
+11,3,baseline_think_newline,334,14190,Wait,mlp_27_only,0.0,1
+11,3,baseline_think_newline,334,14190,Wait,mlp_27_only,0.5,1
+11,3,baseline_think_newline,334,14190,Wait,mlp_27_only,0.9,1
+11,4,baseline_think_newline,294,14190,Wait,mlp_27_only,0.0,1
+11,4,baseline_think_newline,294,14190,Wait,mlp_27_only,0.5,1
+11,4,baseline_think_newline,294,14190,Wait,mlp_27_only,0.9,1
+11,5,baseline_think_newline,332,14190,Wait,mlp_27_only,0.0,1
+11,5,baseline_think_newline,332,14190,Wait,mlp_27_only,0.5,1
+11,5,baseline_think_newline,332,14190,Wait,mlp_27_only,0.9,1
+12,0,baseline_think_newline,218,3783, wait,mlp_27_only,0.0,1
+12,0,baseline_think_newline,218,3783, wait,mlp_27_only,0.5,1
+12,0,baseline_think_newline,218,3783, wait,mlp_27_only,0.9,1
+12,1,baseline_think_newline,208,3520, actually,mlp_27_only,0.0,1
+12,1,baseline_think_newline,208,3520, actually,mlp_27_only,0.5,1
+12,1,baseline_think_newline,208,3520, actually,mlp_27_only,0.9,1
+12,3,baseline_think_newline,280,3520, actually,mlp_27_only,0.0,1
+12,3,baseline_think_newline,280,3520, actually,mlp_27_only,0.5,1
+12,3,baseline_think_newline,280,3520, actually,mlp_27_only,0.9,1
+12,5,baseline_think_newline,279,3783, wait,mlp_27_only,0.0,1
+12,5,baseline_think_newline,279,3783, wait,mlp_27_only,0.5,1
+12,5,baseline_think_newline,279,3783, wait,mlp_27_only,0.9,1
+13,0,baseline_think_newline,342,14190,Wait,mlp_27_only,0.0,1
+13,0,baseline_think_newline,342,14190,Wait,mlp_27_only,0.5,1
+13,0,baseline_think_newline,342,14190,Wait,mlp_27_only,0.9,1
+13,2,baseline_think_newline,464,14190,Wait,mlp_27_only,0.0,1
+13,2,baseline_think_newline,464,14190,Wait,mlp_27_only,0.5,1
+13,2,baseline_think_newline,464,14190,Wait,mlp_27_only,0.9,1
+13,3,baseline_think_newline,130,14190,Wait,mlp_27_only,0.0,1
+13,3,baseline_think_newline,130,14190,Wait,mlp_27_only,0.5,1
+13,3,baseline_think_newline,130,14190,Wait,mlp_27_only,0.9,1
+13,5,baseline_think_newline,343,14190,Wait,mlp_27_only,0.0,1
+13,5,baseline_think_newline,343,14190,Wait,mlp_27_only,0.5,1
+13,5,baseline_think_newline,343,14190,Wait,mlp_27_only,0.9,1
+14,0,baseline_think_newline,336,14190,Wait,mlp_27_only,0.0,1
+14,0,baseline_think_newline,336,14190,Wait,mlp_27_only,0.5,1
+14,0,baseline_think_newline,336,14190,Wait,mlp_27_only,0.9,1
+14,2,baseline_think_newline,383,14190,Wait,mlp_27_only,0.0,1
+14,2,baseline_think_newline,383,14190,Wait,mlp_27_only,0.5,1
+14,2,baseline_think_newline,383,14190,Wait,mlp_27_only,0.9,1
+14,3,baseline_think_newline,293,14190,Wait,mlp_27_only,0.0,1
+14,3,baseline_think_newline,293,14190,Wait,mlp_27_only,0.5,1
+14,3,baseline_think_newline,293,14190,Wait,mlp_27_only,0.9,1
+14,4,baseline_think_newline,203,14190,Wait,mlp_27_only,0.0,1
+14,4,baseline_think_newline,203,14190,Wait,mlp_27_only,0.5,1
+14,4,baseline_think_newline,203,14190,Wait,mlp_27_only,0.9,1
+14,5,baseline_think_newline,482,14190,Wait,mlp_27_only,0.0,1
+14,5,baseline_think_newline,482,14190,Wait,mlp_27_only,0.5,1
+14,5,baseline_think_newline,482,14190,Wait,mlp_27_only,0.9,1
+15,0,baseline_think_newline,338,3783, wait,mlp_27_only,0.0,1
+15,0,baseline_think_newline,338,3783, wait,mlp_27_only,0.5,1
+15,0,baseline_think_newline,338,3783, wait,mlp_27_only,0.9,1
+15,1,baseline_think_newline,326,14190,Wait,mlp_27_only,0.0,1
+15,1,baseline_think_newline,326,14190,Wait,mlp_27_only,0.5,1
+15,1,baseline_think_newline,326,14190,Wait,mlp_27_only,0.9,1
+15,2,baseline_think_newline,318,3783, wait,mlp_27_only,0.0,1
+15,2,baseline_think_newline,318,3783, wait,mlp_27_only,0.5,1
+15,2,baseline_think_newline,318,3783, wait,mlp_27_only,0.9,1
+15,3,baseline_think_newline,296,3783, wait,mlp_27_only,0.0,1
+15,3,baseline_think_newline,296,3783, wait,mlp_27_only,0.5,1
+15,3,baseline_think_newline,296,3783, wait,mlp_27_only,0.9,1
+15,4,baseline_think_newline,321,14190,Wait,mlp_27_only,0.0,1
+15,4,baseline_think_newline,321,14190,Wait,mlp_27_only,0.5,1
+15,4,baseline_think_newline,321,14190,Wait,mlp_27_only,0.9,1
+15,5,baseline_think_newline,359,3783, wait,mlp_27_only,0.0,1
+15,5,baseline_think_newline,359,3783, wait,mlp_27_only,0.5,1
+15,5,baseline_think_newline,359,3783, wait,mlp_27_only,0.9,1
+16,0,baseline_think_newline,278,3783, wait,mlp_27_only,0.0,1
+16,0,baseline_think_newline,278,3783, wait,mlp_27_only,0.5,1
+16,0,baseline_think_newline,278,3783, wait,mlp_27_only,0.9,1
+16,1,baseline_think_newline,224,13824, Wait,mlp_27_only,0.0,1
+16,1,baseline_think_newline,224,13824, Wait,mlp_27_only,0.5,1
+16,1,baseline_think_newline,224,13824, Wait,mlp_27_only,0.9,1
+16,2,baseline_think_newline,211,3783, wait,mlp_27_only,0.0,1
+16,2,baseline_think_newline,211,3783, wait,mlp_27_only,0.5,1
+16,2,baseline_think_newline,211,3783, wait,mlp_27_only,0.9,1
+16,3,baseline_think_newline,223,14190,Wait,mlp_27_only,0.0,1
+16,3,baseline_think_newline,223,14190,Wait,mlp_27_only,0.5,1
+16,3,baseline_think_newline,223,14190,Wait,mlp_27_only,0.9,1
+16,4,baseline_think_newline,264,3783, wait,mlp_27_only,0.0,1
+16,4,baseline_think_newline,264,3783, wait,mlp_27_only,0.5,1
+16,4,baseline_think_newline,264,3783, wait,mlp_27_only,0.9,1
+16,5,baseline_think_newline,242,3520, actually,mlp_27_only,0.0,1
+16,5,baseline_think_newline,242,3520, actually,mlp_27_only,0.5,1
+16,5,baseline_think_newline,242,3520, actually,mlp_27_only,0.9,1
+17,1,baseline_think_newline,242,3783, wait,mlp_27_only,0.0,1
+17,1,baseline_think_newline,242,3783, wait,mlp_27_only,0.5,1
+17,1,baseline_think_newline,242,3783, wait,mlp_27_only,0.9,1
+18,0,baseline_think_newline,170,14190,Wait,mlp_27_only,0.0,1
+18,0,baseline_think_newline,170,14190,Wait,mlp_27_only,0.5,1
+18,0,baseline_think_newline,170,14190,Wait,mlp_27_only,0.9,1
+18,1,baseline_think_newline,258,14190,Wait,mlp_27_only,0.0,1
+18,1,baseline_think_newline,258,14190,Wait,mlp_27_only,0.5,1
+18,1,baseline_think_newline,258,14190,Wait,mlp_27_only,0.9,1
+18,2,baseline_think_newline,285,14190,Wait,mlp_27_only,0.0,1
+18,2,baseline_think_newline,285,14190,Wait,mlp_27_only,0.5,1
+18,2,baseline_think_newline,285,14190,Wait,mlp_27_only,0.9,1
+18,3,baseline_think_newline,540,14190,Wait,mlp_27_only,0.0,1
+18,3,baseline_think_newline,540,14190,Wait,mlp_27_only,0.5,1
+18,3,baseline_think_newline,540,14190,Wait,mlp_27_only,0.9,1
+18,4,baseline_think_newline,296,3783, wait,mlp_27_only,0.0,1
+18,4,baseline_think_newline,296,3783, wait,mlp_27_only,0.5,1
+18,4,baseline_think_newline,296,3783, wait,mlp_27_only,0.9,1
+19,0,baseline_think_newline,197,14190,Wait,mlp_27_only,0.0,1
+19,0,baseline_think_newline,197,14190,Wait,mlp_27_only,0.5,1
+19,0,baseline_think_newline,197,14190,Wait,mlp_27_only,0.9,1
+19,2,baseline_think_newline,486,3783, wait,mlp_27_only,0.0,1
+19,2,baseline_think_newline,486,3783, wait,mlp_27_only,0.5,1
+19,2,baseline_think_newline,486,3783, wait,mlp_27_only,0.9,1
+19,5,baseline_think_newline,313,14190,Wait,mlp_27_only,0.0,1
+19,5,baseline_think_newline,313,14190,Wait,mlp_27_only,0.5,1
+19,5,baseline_think_newline,313,14190,Wait,mlp_27_only,0.9,1
+20,0,baseline_think_newline,539,3783, wait,mlp_27_only,0.0,1
+20,0,baseline_think_newline,539,3783, wait,mlp_27_only,0.5,1
+20,0,baseline_think_newline,539,3783, wait,mlp_27_only,0.9,1
+20,1,baseline_think_newline,343,3783, wait,mlp_27_only,0.0,1
+20,1,baseline_think_newline,343,3783, wait,mlp_27_only,0.5,1
+20,1,baseline_think_newline,343,3783, wait,mlp_27_only,0.9,1
+20,3,baseline_think_newline,343,3783, wait,mlp_27_only,0.0,1
+20,3,baseline_think_newline,343,3783, wait,mlp_27_only,0.5,1
+20,3,baseline_think_newline,343,3783, wait,mlp_27_only,0.9,1
+20,4,baseline_think_newline,169,3783, wait,mlp_27_only,0.0,1
+20,4,baseline_think_newline,169,3783, wait,mlp_27_only,0.5,1
+20,4,baseline_think_newline,169,3783, wait,mlp_27_only,0.9,1
+20,5,baseline_think_newline,379,14190,Wait,mlp_27_only,0.0,1
+20,5,baseline_think_newline,379,14190,Wait,mlp_27_only,0.5,1
+20,5,baseline_think_newline,379,14190,Wait,mlp_27_only,0.9,1
+21,0,baseline_think_newline,458,14190,Wait,mlp_27_only,0.0,1
+21,0,baseline_think_newline,458,14190,Wait,mlp_27_only,0.5,1
+21,0,baseline_think_newline,458,14190,Wait,mlp_27_only,0.9,1
+21,2,baseline_think_newline,358,13824, Wait,mlp_27_only,0.0,1
+21,2,baseline_think_newline,358,13824, Wait,mlp_27_only,0.5,1
+21,2,baseline_think_newline,358,13824, Wait,mlp_27_only,0.9,1
+21,5,baseline_think_newline,274,14190,Wait,mlp_27_only,0.0,1
+21,5,baseline_think_newline,274,14190,Wait,mlp_27_only,0.5,1
+21,5,baseline_think_newline,274,14190,Wait,mlp_27_only,0.9,1
+22,0,baseline_think_newline,203,13824, Wait,mlp_27_only,0.0,1
+22,0,baseline_think_newline,203,13824, Wait,mlp_27_only,0.5,1
+22,0,baseline_think_newline,203,13824, Wait,mlp_27_only,0.9,1
+22,2,baseline_think_newline,302,3783, wait,mlp_27_only,0.0,1
+22,2,baseline_think_newline,302,3783, wait,mlp_27_only,0.5,1
+22,2,baseline_think_newline,302,3783, wait,mlp_27_only,0.9,1
+22,3,baseline_think_newline,478,14190,Wait,mlp_27_only,0.0,1
+22,3,baseline_think_newline,478,14190,Wait,mlp_27_only,0.5,1
+22,3,baseline_think_newline,478,14190,Wait,mlp_27_only,0.9,1
+22,4,baseline_think_newline,350,13824, Wait,mlp_27_only,0.0,1
+22,4,baseline_think_newline,350,13824, Wait,mlp_27_only,0.5,1
+22,4,baseline_think_newline,350,13824, Wait,mlp_27_only,0.9,1
+22,5,baseline_think_newline,424,13824, Wait,mlp_27_only,0.0,1
+22,5,baseline_think_newline,424,13824, Wait,mlp_27_only,0.5,1
+22,5,baseline_think_newline,424,13824, Wait,mlp_27_only,0.9,1
+23,0,baseline_think_newline,494,14190,Wait,mlp_27_only,0.0,1
+23,0,baseline_think_newline,494,14190,Wait,mlp_27_only,0.5,1
+23,0,baseline_think_newline,494,14190,Wait,mlp_27_only,0.9,1
+23,1,baseline_think_newline,380,14190,Wait,mlp_27_only,0.0,1
+23,1,baseline_think_newline,380,14190,Wait,mlp_27_only,0.5,1
+23,1,baseline_think_newline,380,14190,Wait,mlp_27_only,0.9,1
+23,2,baseline_think_newline,520,14190,Wait,mlp_27_only,0.0,1
+23,2,baseline_think_newline,520,14190,Wait,mlp_27_only,0.5,1
+23,2,baseline_think_newline,520,14190,Wait,mlp_27_only,0.9,1
+23,3,baseline_think_newline,343,14190,Wait,mlp_27_only,0.0,1
+23,3,baseline_think_newline,343,14190,Wait,mlp_27_only,0.5,1
+23,3,baseline_think_newline,343,14190,Wait,mlp_27_only,0.9,1
+24,0,baseline_think_newline,215,3520, actually,mlp_27_only,0.0,1
+24,0,baseline_think_newline,215,3520, actually,mlp_27_only,0.5,1
+24,0,baseline_think_newline,215,3520, actually,mlp_27_only,0.9,1
+24,1,baseline_think_newline,112,14190,Wait,mlp_27_only,0.0,1
+24,1,baseline_think_newline,112,14190,Wait,mlp_27_only,0.5,1
+24,1,baseline_think_newline,112,14190,Wait,mlp_27_only,0.9,1
+24,3,baseline_think_newline,189,14190,Wait,mlp_27_only,0.0,1
+24,3,baseline_think_newline,189,14190,Wait,mlp_27_only,0.5,1
+24,3,baseline_think_newline,189,14190,Wait,mlp_27_only,0.9,1
+24,4,baseline_think_newline,202,13824, Wait,mlp_27_only,0.0,1
+24,4,baseline_think_newline,202,13824, Wait,mlp_27_only,0.5,1
+24,4,baseline_think_newline,202,13824, Wait,mlp_27_only,0.9,1
+24,5,baseline_think_newline,243,3520, actually,mlp_27_only,0.0,1
+24,5,baseline_think_newline,243,3520, actually,mlp_27_only,0.5,1
+24,5,baseline_think_newline,243,3520, actually,mlp_27_only,0.9,1
+25,0,baseline_think_newline,183,3783, wait,mlp_27_only,0.0,1
+25,0,baseline_think_newline,183,3783, wait,mlp_27_only,0.5,1
+25,0,baseline_think_newline,183,3783, wait,mlp_27_only,0.9,1
+25,2,baseline_think_newline,266,14190,Wait,mlp_27_only,0.0,1
+25,2,baseline_think_newline,266,14190,Wait,mlp_27_only,0.5,1
+25,2,baseline_think_newline,266,14190,Wait,mlp_27_only,0.9,1
+25,4,baseline_think_newline,280,3783, wait,mlp_27_only,0.0,1
+25,4,baseline_think_newline,280,3783, wait,mlp_27_only,0.5,1
+25,4,baseline_think_newline,280,3783, wait,mlp_27_only,0.9,1
+25,5,baseline_think_newline,230,13824, Wait,mlp_27_only,0.0,1
+25,5,baseline_think_newline,230,13824, Wait,mlp_27_only,0.5,1
+25,5,baseline_think_newline,230,13824, Wait,mlp_27_only,0.9,1
+26,5,baseline_think_newline,460,14190,Wait,mlp_27_only,0.0,1
+26,5,baseline_think_newline,460,14190,Wait,mlp_27_only,0.5,1
+26,5,baseline_think_newline,460,14190,Wait,mlp_27_only,0.9,1
+27,0,baseline_think_newline,226,14190,Wait,mlp_27_only,0.0,1
+27,0,baseline_think_newline,226,14190,Wait,mlp_27_only,0.5,1
+27,0,baseline_think_newline,226,14190,Wait,mlp_27_only,0.9,1
+27,1,baseline_think_newline,298,14190,Wait,mlp_27_only,0.0,1
+27,1,baseline_think_newline,298,14190,Wait,mlp_27_only,0.5,1
+27,1,baseline_think_newline,298,14190,Wait,mlp_27_only,0.9,1
+27,2,baseline_think_newline,273,14190,Wait,mlp_27_only,0.0,1
+27,2,baseline_think_newline,273,14190,Wait,mlp_27_only,0.5,1
+27,2,baseline_think_newline,273,14190,Wait,mlp_27_only,0.9,1
+27,4,baseline_think_newline,382,14190,Wait,mlp_27_only,0.0,1
+27,4,baseline_think_newline,382,14190,Wait,mlp_27_only,0.5,1
+27,4,baseline_think_newline,382,14190,Wait,mlp_27_only,0.9,1
+27,5,baseline_think_newline,183,14190,Wait,mlp_27_only,0.0,1
+27,5,baseline_think_newline,183,14190,Wait,mlp_27_only,0.5,1
+27,5,baseline_think_newline,183,14190,Wait,mlp_27_only,0.9,1
+28,0,baseline_think_newline,528,14190,Wait,mlp_27_only,0.0,1
+28,0,baseline_think_newline,528,14190,Wait,mlp_27_only,0.5,1
+28,0,baseline_think_newline,528,14190,Wait,mlp_27_only,0.9,1
+28,1,baseline_think_newline,418,14190,Wait,mlp_27_only,0.0,1
+28,1,baseline_think_newline,418,14190,Wait,mlp_27_only,0.5,1
+28,1,baseline_think_newline,418,14190,Wait,mlp_27_only,0.9,1
+28,4,baseline_think_newline,559,14190,Wait,mlp_27_only,0.0,1
+28,4,baseline_think_newline,559,14190,Wait,mlp_27_only,0.5,1
+28,4,baseline_think_newline,559,14190,Wait,mlp_27_only,0.9,1
+28,5,baseline_think_newline,322,3783, wait,mlp_27_only,0.0,1
+28,5,baseline_think_newline,322,3783, wait,mlp_27_only,0.5,1
+28,5,baseline_think_newline,322,3783, wait,mlp_27_only,0.9,1
+29,0,baseline_think_newline,394,14190,Wait,mlp_27_only,0.0,1
+29,0,baseline_think_newline,394,14190,Wait,mlp_27_only,0.5,1
+29,0,baseline_think_newline,394,14190,Wait,mlp_27_only,0.9,1
+29,1,baseline_think_newline,490,14190,Wait,mlp_27_only,0.0,1
+29,1,baseline_think_newline,490,14190,Wait,mlp_27_only,0.5,1
+29,1,baseline_think_newline,490,14190,Wait,mlp_27_only,0.9,1
+29,2,baseline_think_newline,573,14190,Wait,mlp_27_only,0.0,1
+29,2,baseline_think_newline,573,14190,Wait,mlp_27_only,0.5,1
+29,2,baseline_think_newline,573,14190,Wait,mlp_27_only,0.9,1
+29,5,baseline_think_newline,465,14190,Wait,mlp_27_only,0.0,1
+29,5,baseline_think_newline,465,14190,Wait,mlp_27_only,0.5,1
+29,5,baseline_think_newline,465,14190,Wait,mlp_27_only,0.9,1
+30,0,baseline_think_newline,280,14190,Wait,mlp_27_only,0.0,1
+30,0,baseline_think_newline,280,14190,Wait,mlp_27_only,0.5,1
+30,0,baseline_think_newline,280,14190,Wait,mlp_27_only,0.9,1
+30,2,baseline_think_newline,176,3783, wait,mlp_27_only,0.0,1
+30,2,baseline_think_newline,176,3783, wait,mlp_27_only,0.5,1
+30,2,baseline_think_newline,176,3783, wait,mlp_27_only,0.9,1
+30,3,baseline_think_newline,389,14190,Wait,mlp_27_only,0.0,1
+30,3,baseline_think_newline,389,14190,Wait,mlp_27_only,0.5,1
+30,3,baseline_think_newline,389,14190,Wait,mlp_27_only,0.9,1
+30,4,baseline_think_newline,285,3783, wait,mlp_27_only,0.0,1
+30,4,baseline_think_newline,285,3783, wait,mlp_27_only,0.5,1
+30,4,baseline_think_newline,285,3783, wait,mlp_27_only,0.9,1
+30,5,baseline_think_newline,178,3783, wait,mlp_27_only,0.0,1
+30,5,baseline_think_newline,178,3783, wait,mlp_27_only,0.5,1
+30,5,baseline_think_newline,178,3783, wait,mlp_27_only,0.9,1
+31,0,baseline_think_newline,239,3783, wait,mlp_27_only,0.0,1
+31,0,baseline_think_newline,239,3783, wait,mlp_27_only,0.5,1
+31,0,baseline_think_newline,239,3783, wait,mlp_27_only,0.9,1
+31,1,baseline_think_newline,580,14190,Wait,mlp_27_only,0.0,1
+31,1,baseline_think_newline,580,14190,Wait,mlp_27_only,0.5,1
+31,1,baseline_think_newline,580,14190,Wait,mlp_27_only,0.9,1
+31,2,baseline_think_newline,473,13824, Wait,mlp_27_only,0.0,1
+31,2,baseline_think_newline,473,13824, Wait,mlp_27_only,0.5,1
+31,2,baseline_think_newline,473,13824, Wait,mlp_27_only,0.9,1
+31,4,baseline_think_newline,213,14190,Wait,mlp_27_only,0.0,1
+31,4,baseline_think_newline,213,14190,Wait,mlp_27_only,0.5,1
+31,4,baseline_think_newline,213,14190,Wait,mlp_27_only,0.9,1
+31,5,baseline_think_newline,342,13824, Wait,mlp_27_only,0.0,1
+31,5,baseline_think_newline,342,13824, Wait,mlp_27_only,0.5,1
+31,5,baseline_think_newline,342,13824, Wait,mlp_27_only,0.9,1
+32,1,baseline_think_newline,503,14190,Wait,mlp_27_only,0.0,1
+32,1,baseline_think_newline,503,14190,Wait,mlp_27_only,0.5,1
+32,1,baseline_think_newline,503,14190,Wait,mlp_27_only,0.9,1
+32,2,baseline_think_newline,333,13824, Wait,mlp_27_only,0.0,1
+32,2,baseline_think_newline,333,13824, Wait,mlp_27_only,0.5,1
+32,2,baseline_think_newline,333,13824, Wait,mlp_27_only,0.9,1
+32,4,baseline_think_newline,537,14190,Wait,mlp_27_only,0.0,1
+32,4,baseline_think_newline,537,14190,Wait,mlp_27_only,0.5,1
+32,4,baseline_think_newline,537,14190,Wait,mlp_27_only,0.9,1
+33,0,baseline_think_newline,473,14190,Wait,mlp_27_only,0.0,1
+33,0,baseline_think_newline,473,14190,Wait,mlp_27_only,0.5,1
+33,0,baseline_think_newline,473,14190,Wait,mlp_27_only,0.9,1
+33,2,baseline_think_newline,511,14190,Wait,mlp_27_only,0.0,1
+33,2,baseline_think_newline,511,14190,Wait,mlp_27_only,0.5,1
+33,2,baseline_think_newline,511,14190,Wait,mlp_27_only,0.9,1
+33,3,baseline_think_newline,502,14190,Wait,mlp_27_only,0.0,1
+33,3,baseline_think_newline,502,14190,Wait,mlp_27_only,0.5,1
+33,3,baseline_think_newline,502,14190,Wait,mlp_27_only,0.9,1
+33,4,baseline_think_newline,247,14190,Wait,mlp_27_only,0.0,1
+33,4,baseline_think_newline,247,14190,Wait,mlp_27_only,0.5,1
+33,4,baseline_think_newline,247,14190,Wait,mlp_27_only,0.9,1
+33,5,baseline_think_newline,402,3783, wait,mlp_27_only,0.0,1
+33,5,baseline_think_newline,402,3783, wait,mlp_27_only,0.5,1
+33,5,baseline_think_newline,402,3783, wait,mlp_27_only,0.9,1
+34,0,baseline_think_newline,128,13824, Wait,mlp_27_only,0.0,1
+34,0,baseline_think_newline,128,13824, Wait,mlp_27_only,0.5,1
+34,0,baseline_think_newline,128,13824, Wait,mlp_27_only,0.9,1
+34,1,baseline_think_newline,183,13824, Wait,mlp_27_only,0.0,1
+34,1,baseline_think_newline,183,13824, Wait,mlp_27_only,0.5,1
+34,1,baseline_think_newline,183,13824, Wait,mlp_27_only,0.9,1
+34,2,baseline_think_newline,313,13824, Wait,mlp_27_only,0.0,1
+34,2,baseline_think_newline,313,13824, Wait,mlp_27_only,0.5,1
+34,2,baseline_think_newline,313,13824, Wait,mlp_27_only,0.9,1
+34,3,baseline_think_newline,549,14190,Wait,mlp_27_only,0.0,1
+34,3,baseline_think_newline,549,14190,Wait,mlp_27_only,0.5,1
+34,3,baseline_think_newline,549,14190,Wait,mlp_27_only,0.9,1
+34,4,baseline_think_newline,304,13824, Wait,mlp_27_only,0.0,1
+34,4,baseline_think_newline,304,13824, Wait,mlp_27_only,0.5,1
+34,4,baseline_think_newline,304,13824, Wait,mlp_27_only,0.9,1
+34,5,baseline_think_newline,222,13824, Wait,mlp_27_only,0.0,1
+34,5,baseline_think_newline,222,13824, Wait,mlp_27_only,0.5,1
+34,5,baseline_think_newline,222,13824, Wait,mlp_27_only,0.9,1
+35,0,baseline_think_newline,298,14190,Wait,mlp_27_only,0.0,1
+35,0,baseline_think_newline,298,14190,Wait,mlp_27_only,0.5,1
+35,0,baseline_think_newline,298,14190,Wait,mlp_27_only,0.9,1
+35,1,baseline_think_newline,568,14190,Wait,mlp_27_only,0.0,1
+35,1,baseline_think_newline,568,14190,Wait,mlp_27_only,0.5,1
+35,1,baseline_think_newline,568,14190,Wait,mlp_27_only,0.9,1
+35,2,baseline_think_newline,386,14190,Wait,mlp_27_only,0.0,1
+35,2,baseline_think_newline,386,14190,Wait,mlp_27_only,0.5,1
+35,2,baseline_think_newline,386,14190,Wait,mlp_27_only,0.9,1
+35,3,baseline_think_newline,302,14190,Wait,mlp_27_only,0.0,1
+35,3,baseline_think_newline,302,14190,Wait,mlp_27_only,0.5,1
+35,3,baseline_think_newline,302,14190,Wait,mlp_27_only,0.9,1
