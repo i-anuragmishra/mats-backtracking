@@ -1,255 +1,138 @@
-# MATS-BACKTRACKING
+# Backtracking State Transition Analysis
 
-> Mechanistic Interpretability Research: Investigating backtracking and state transitions in language models.
+Mechanistic interpretability research investigating how reasoning models perform self-correction through backtracking behavior.
 
-## 🚀 Quickstart
+## Overview
 
-### 1. Activate Environment
+This project investigates the neural mechanisms behind **backtracking** in language models — the behavior where models use phrases like "Wait", "Actually", or "Hold on" to reconsider and revise their reasoning during chain-of-thought problem solving.
 
-```bash
-# Source the activation script (sets cache dirs + activates venv)
-source scripts/activate_env.sh
-```
+### Key Findings
 
-### 2. Install Dependencies
+- **Backtracking is localized**: MLP layer 27 alone accounts for 55% of backtracking behavior
+- **Late MLP layers are critical**: Ablating MLP layers 19-27 reduces backtracking by 85%
+- **Attention is not the mechanism**: Ablating attention layers actually *increases* backtracking
+- **Backtracking improves accuracy**: Samples with backtracking show 2.1× higher accuracy (23.7% vs 11.5%)
 
-```bash
-# First time setup (creates venv and installs packages)
-uv sync
-
-# Or with optional mechanistic interp packages:
-uv sync --all-extras
-```
-
-### 3. Verify Setup
-
-```bash
-# Run diagnostics
-make doctor
-
-# Run full smoke test (loads a tiny model on GPU)
-make smoke
-```
-
-### 4. Add Your Secrets
-
-```bash
-# Copy example env file
-cp .env.example .env
-
-# Edit with your tokens (NEVER commit this file)
-nano .env
-```
-
----
-
-## 📁 Project Structure
+## Project Structure
 
 ```
 mats-backtracking/
-├── README.md              # This file
-├── .gitignore             # Git ignore rules (excludes weights, caches, secrets)
-├── .env.example           # Template for environment variables
-├── .env                   # Your secrets (NEVER committed)
-├── Makefile               # Common commands (make help for list)
-├── pyproject.toml         # Project config + dependencies
-├── uv.lock                # Locked dependency versions
+├── src/backtracking/          # Core experiment code
+│   ├── cli.py                 # Command-line interface
+│   ├── config.py              # Configuration management
+│   ├── detect.py              # Backtracking detection
+│   ├── generate.py            # Model generation with ablations
+│   ├── hooks.py               # Ablation hooks and instrumentation
+│   └── analysis/              # Analysis modules
+│       ├── events.py          # Event processing
+│       ├── logit_lens.py      # Logit lens analysis
+│       ├── ablation_scan.py   # Layer importance scanning
+│       ├── sweeps.py          # Phase 2 sweep experiments
+│       └── plots*.py          # Visualization
 │
-├── src/backtracking/      # Main Python package
-│   ├── __init__.py
-│   └── ...
-│
-├── scripts/               # Shell/Python utility scripts
-│   ├── activate_env.sh    # Environment activation
-│   ├── doctor.sh          # Diagnostics
-│   ├── run_smoke_test.py  # GPU/import verification
-│   ├── snapshot_run.sh    # Create timestamped run snapshot
-│   └── push_all.sh        # Commit and push to git
-│
-├── notebooks/             # Jupyter notebooks for exploration
-├── configs/               # YAML/JSON configuration files
-│
-├── data/
-│   ├── raw/               # Original, immutable data (gitignored)
-│   ├── interim/           # Intermediate transformed data
-│   └── processed/         # Final data for modeling
-│
-├── results/               # Experiment outputs (metrics, tables)
-├── figures/               # Generated plots and visualizations
-├── reports/               # Writeups, LaTeX, etc.
-├── logs/                  # Training/experiment logs (gitignored)
-│
-├── runs/                  # Timestamped run snapshots
-│   └── YYYYMMDD_HHMMSS/   # Auto-created by snapshot_run.sh
-│
-├── scratch/               # Temporary work (gitignored)
-├── .cache/                # HuggingFace/Torch/pip caches (gitignored)
-└── wandb/                 # W&B local files (gitignored)
+├── configs/                   # Experiment configurations
+├── scripts/                   # Utility scripts
+├── data/processed/            # Processed datasets
+├── figures/                   # Generated visualizations
+├── reports/                   # Experiment reports
+└── runs/                      # Timestamped experiment runs
+    ├── 20251223_232541/       # Phase 1 results
+    └── 20251224_045331/       # Phase 2 results
 ```
 
----
+## Setup
 
-## 🔧 Common Commands
+### Prerequisites
+- Python 3.10+
+- CUDA-capable GPU (tested on A100 40GB)
+- [uv](https://github.com/astral-sh/uv) package manager
 
-Run `make help` for a full list. Key commands:
-
-| Command | Description |
-|---------|-------------|
-| `make install` | Install dependencies |
-| `make doctor` | Run environment diagnostics |
-| `make smoke` | Run full smoke test |
-| `make notebook` | Start Jupyter server |
-| `make lint` | Run linter (ruff) |
-| `make format` | Auto-format code |
-| `make snapshot` | Create run snapshot |
-| `make push` | Commit and push to git |
-| `make backup` | Snapshot + push |
-
----
-
-## 💾 Persistence Workflow
-
-**Before shutting down your instance**, always run:
+### Installation
 
 ```bash
-# Create a snapshot of current state
-make snapshot
+# Clone the repository
+git clone https://github.com/i-anuragmishra/mats-backtracking.git
+cd mats-backtracking
 
-# Commit and push everything to GitHub
-make push
+# Run bootstrap script
+bash scripts/bootstrap.sh
 
-# Or do both at once:
-make backup
+# Add HuggingFace token to .env
+echo "HF_TOKEN=your_token_here" >> .env
+
+# Activate environment
+source scripts/activate_env.sh
+
+# Verify setup
+make doctor
 ```
 
-This ensures your code, configs, and lightweight results are safely stored.
+## Running Experiments
 
-### What Gets Saved
+### Phase 1: Baseline Analysis & Layer Identification
 
-✅ **Tracked by git:**
-- All code (`src/`, `scripts/`)
-- Notebooks (`notebooks/`)
-- Configs (`configs/`)
-- Results, figures, reports (small files)
-- Run snapshots (`runs/*/metadata.txt`, etc.)
+```bash
+# Initialize run
+python -m backtracking.cli init-run --config configs/backtracking_state_transition.yaml
 
-❌ **NOT tracked (too large):**
-- Model weights (`.pt`, `.bin`, `.safetensors`)
-- Caches (`.cache/`)
-- Raw data (`data/raw/`)
-- W&B local files (`wandb/`)
-- Secrets (`.env`)
+# Generate baseline completions
+python -m backtracking.cli generate --config configs/backtracking_state_transition.yaml --condition baseline
 
-### Large Artifact Options
+# Detect backtracking events
+python -m backtracking.cli detect-events --config configs/backtracking_state_transition.yaml
 
-For large artifacts (model checkpoints, activation caches):
-
-1. **W&B Artifacts**: Upload via `wandb.log_artifact()`
-2. **Manual archive**: `tar -czvf run_artifacts.tar.gz results/`
-3. **DVC** (if configured): `dvc push`
-
----
-
-## 🔐 Secrets Management
-
-**Never commit secrets to git!**
-
-1. Copy the template: `cp .env.example .env`
-2. Edit `.env` with your actual tokens
-3. The activation script auto-loads `.env`
-
-Required tokens:
-- `HF_TOKEN`: HuggingFace Hub access ([get one here](https://huggingface.co/settings/tokens))
-- `WANDB_API_KEY`: Weights & Biases ([get one here](https://wandb.ai/authorize))
-
----
-
-## 🧪 Running Experiments
-
-### Example: Training/Analysis Script
-
-```python
-#!/usr/bin/env python3
-"""Example experiment script."""
-
-import os
-from pathlib import Path
-
-# Import project package
-from backtracking import PROJECT_ROOT
-
-# Configs
-config_path = PROJECT_ROOT / "configs" / "experiment.yaml"
-
-# Save results
-results_dir = PROJECT_ROOT / "results"
-figures_dir = PROJECT_ROOT / "figures"
-
-# Your experiment code here...
+# Run ablation scan to identify important layers
+python -m backtracking.cli ablation-scan --config configs/backtracking_state_transition.yaml
 ```
 
-### Using W&B
+### Phase 2: Non-Destructive Intervention Search
 
-```python
-import wandb
+```bash
+# Subset sweep - test different layer combinations
+python -m backtracking.cli phase2-subset-sweep --config configs/backtracking_state_transition_phase2.yaml
 
-# Initialize (uses WANDB_* env vars from .env)
-wandb.init(
-    project=os.environ.get("WANDB_PROJECT", "mats-backtracking"),
-    dir=os.environ.get("WANDB_DIR", "./wandb"),
-)
-
-# Log metrics
-wandb.log({"loss": 0.5, "accuracy": 0.9})
-
-# Save artifacts
-wandb.save("results/*.json")
+# Scale sweep - test ablation strengths
+python -m backtracking.cli phase2-scale-sweep --config configs/backtracking_state_transition_phase2.yaml
 ```
 
----
+## Results
 
-## 📓 Experiment Log
+### Phase 1: Layer Identification
 
-### Template
+| Condition | Backtracking Rate | Accuracy |
+|-----------|-------------------|----------|
+| Baseline | 68.1% | 19.9% |
+| Targeted Ablation (12 layers) | 2.8% | 1.2% |
+| Random Ablation | 54.9% | 1.6% |
 
-```markdown
-## YYYY-MM-DD: Experiment Name
+### Phase 2: Subset Analysis
 
-**Goal:** What are you trying to learn/test?
+| Ablation Subset | Backtracking Rate | Reduction |
+|-----------------|-------------------|-----------|
+| Baseline | 63.3% | — |
+| MLP Layer 27 Only | 28.3% | 55% |
+| MLP Late Cluster | 9.8% | 85% |
+| Phase 1 Full | 1.7% | 97% |
 
-**Setup:**
-- Model: ...
-- Dataset: ...
-- Key hyperparameters: ...
+See `reports/` for detailed analysis.
 
-**Results:**
-- Finding 1
-- Finding 2
+## Model
 
-**Next steps:**
-- ...
+- **Model**: DeepSeek-R1-Distill-Qwen-1.5B
+- **Dataset**: GSM8K (200 problems, 6 samples each)
+- **Backtracking triggers**: "Wait", "Actually", "Hold on", "Let me reconsider"
 
-**Commit:** `abc1234`
+## Citation
+
+```bibtex
+@misc{mishra2025backtracking,
+  title={Localized Neural Circuits for Backtracking in Reasoning Models},
+  author={Mishra, Anurag},
+  year={2025},
+  howpublished={MATS Research}
+}
 ```
-
----
-
-### Log Entries
-
-*(Add your entries below)*
-
----
-
-## 🔗 Resources
-
-- [TransformerLens Docs](https://transformerlensorg.github.io/TransformerLens/)
-- [ARENA 3.0 Curriculum](https://www.arena.education/)
-- [Neel Nanda's Concrete MI Tutorial](https://www.neelnanda.io/mechanistic-interpretability/getting-started)
-
----
 
 ## License
 
 MIT
-
-

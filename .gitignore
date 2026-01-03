@@ -172,3 +172,4 @@ htmlcov/
 !runs/**/config_resolved.yaml
 !runs/**/meta.json
 
+extra/
