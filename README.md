@@ -1,4 +1,5 @@
-# Backtracking State Transition Analysis
+# Backtracking as a State Transition
+### Locating and Intervening on Revision-Mode Onset in DeepSeek-R1-Distill-Qwen-1.5B
 
 Mechanistic interpretability research investigating how reasoning models perform self-correction through backtracking behavior.
 
